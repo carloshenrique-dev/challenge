@@ -34,7 +34,7 @@ class EntityCard extends StatelessWidget {
               horizontal: 10,
             ),
             subtitle: Text(
-              entities.active != null ? entities.active.toString() : '0',
+              entities.active != null ? isActive(entities.active!) : 'Inactive',
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(),
@@ -42,11 +42,19 @@ class EntityCard extends StatelessWidget {
             trailing: IconButton(
               onPressed: onDeletePressed,
               icon: const Icon(
-                Icons.delete_forever,
+                Icons.close,
                 color: Colors.red,
               ),
             )),
       ),
     );
+  }
+
+  String isActive(int active) {
+    if (active == 0) {
+      return 'Active';
+    } else {
+      return 'Inactive';
+    }
   }
 }

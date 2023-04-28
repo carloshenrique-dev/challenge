@@ -27,4 +27,46 @@ class HouseRulesRepositoryImpl implements HouseRulesRepository {
       return null;
     }
   }
+
+  @override
+  Future<bool> addHouseRules(HouseRulesModel houseRulesModel) async {
+    try {
+      final response = await _httpService.post(houseRulesModel);
+      if (response.statusCode == 200) {
+        return true;
+      }
+      return false;
+    } catch (e) {
+      log(e.toString());
+      return false;
+    }
+  }
+
+  @override
+  Future<bool> deleteHouseRules(int id) async {
+    try {
+      final response = await _httpService.delete(id);
+      if (response.statusCode == 200) {
+        return true;
+      }
+      return false;
+    } catch (e) {
+      log(e.toString());
+      return false;
+    }
+  }
+
+  @override
+  Future<bool> putHouseRules(HouseRulesModel houseRulesModel, int id) async {
+    try {
+      final response = await _httpService.put(houseRulesModel, id);
+      if (response.statusCode == 200) {
+        return true;
+      }
+      return false;
+    } catch (e) {
+      log(e.toString());
+      return false;
+    }
+  }
 }

@@ -32,6 +32,26 @@ class HomePage extends StatelessWidget {
                 .titleLarge!
                 .copyWith(fontSize: 20, fontWeight: FontWeight.bold),
           ),
+          actions: [
+            BlocBuilder<HomeCubit, HomeState>(
+              builder: (context, state) {
+                return IconButton(
+                  onPressed: () async =>
+                      await context.read<HomeCubit>().getHouseRules(),
+                  icon: const Icon(Icons.refresh),
+                );
+              },
+            ),
+            BlocBuilder<HomeCubit, HomeState>(
+              builder: (context, state) {
+                return IconButton(
+                  onPressed: () async =>
+                      await context.read<HomeCubit>().getHouseRules(),
+                  icon: const Icon(Icons.add),
+                );
+              },
+            ),
+          ],
         ),
         drawer: BlocBuilder<HomeCubit, HomeState>(
           builder: (context, state) => DrawerWidget(
@@ -77,7 +97,14 @@ class HomePage extends StatelessWidget {
                       },
                       itemBuilder: (context, index) => EntityCard(
                         onDeletePressed: () {},
-                        onTap: () {},
+                        onTap: () {
+                          context.pushNamed(
+                            AppRoutes.entity.name,
+                            extra: {
+                              'entity': state.entitiesList[index],
+                            },
+                          );
+                        },
                         entities: state.entitiesList[index],
                       ),
                     );

@@ -43,6 +43,30 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
+  Future<void> addHouseRules() async {
+    try {
+      emit(state.copyWith(entitiesList: [], status: Status.loading));
+
+      final houseRulesModel = await _houseRulesRepository.getHouseRules();
+
+      if (houseRulesModel != null) {
+        if (houseRulesModel.data?.entities != null) {
+          if (houseRulesModel.data!.entities!.isNotEmpty) {
+            emit(state.copyWith(
+              entitiesList: houseRulesModel.data!.entities!,
+              status: Status.completed,
+            ));
+          }
+        }
+      } else {
+        emit(state.copyWith(entitiesList: [], status: Status.completed));
+      }
+    } catch (e) {
+      log(e.toString());
+      emit(state.copyWith(errorMessage: e.toString(), status: Status.error));
+    }
+  }
+
   void reset() {
     emit(
       state.copyWith(

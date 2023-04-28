@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 class Entities {
   int? id;
   String? name;
@@ -20,5 +21,24 @@ class Entities {
     data['active'] = active;
     data['order'] = order;
     return data;
+  }
+
+  Entities copyWith({
+    int? id,
+    String? name,
+    int? active,
+    int? order,
+  }) {
+    return Entities(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      active: active ?? this.active,
+      order: order ?? this.order,
+    );
+  }
+
+  @override
+  String toString() {
+    return 'Entities(id: $id, name: $name, active: $active, order: $order)';
   }
 }

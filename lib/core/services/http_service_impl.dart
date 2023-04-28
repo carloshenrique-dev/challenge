@@ -21,7 +21,7 @@ class HttpServiceImpl implements HttpService {
   }
 
   @override
-  Future<http.Response> delete(String id) async {
+  Future<http.Response> delete(int id) async {
     try {
       return await http.delete(
         _baseUrl,
@@ -46,7 +46,7 @@ class HttpServiceImpl implements HttpService {
   }
 
   @override
-  Future<http.Response> put(Object body, String id) async {
+  Future<http.Response> put(Object body, int id) async {
     try {
       return await http.put(
         _baseUrl,

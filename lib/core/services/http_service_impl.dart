@@ -3,16 +3,16 @@ import 'package:http/http.dart' as http;
 import './http_service.dart';
 
 class HttpServiceImpl implements HttpService {
-  final Uri _baseUrl =
-      Uri.parse('https://sys-dev.searchandstay.com/api/admin/house_rules');
+  final String _baseUrl =
+      'https://sys-dev.searchandstay.com/api/admin/house_rules';
   final String _token =
       'Bearer 40fe071962846075452a4f6123ae71697463cad20f51e237e2035b41af0513d8';
 
   @override
-  Future<http.Response> get() async {
+  Future<http.Response> get(int page) async {
     try {
       return await http.get(
-        _baseUrl,
+        Uri.parse('$_baseUrl?page=$page'),
         headers: {'Authorization': 'Bearer $_token'},
       );
     } catch (e) {
@@ -24,7 +24,7 @@ class HttpServiceImpl implements HttpService {
   Future<http.Response> delete(int id) async {
     try {
       return await http.delete(
-        _baseUrl,
+        Uri.parse('$_baseUrl/$id'),
         headers: {'Authorization': 'Bearer $_token'},
       );
     } catch (e) {
@@ -36,7 +36,7 @@ class HttpServiceImpl implements HttpService {
   Future<http.Response> post(Object body) async {
     try {
       return await http.post(
-        _baseUrl,
+        Uri.parse(_baseUrl),
         body: body,
         headers: {'Authorization': 'Bearer $_token'},
       );
@@ -49,7 +49,7 @@ class HttpServiceImpl implements HttpService {
   Future<http.Response> put(Object body, int id) async {
     try {
       return await http.put(
-        _baseUrl,
+        Uri.parse('$_baseUrl/$id'),
         body: body,
         headers: {'Authorization': 'Bearer $_token'},
       );

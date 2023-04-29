@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 import 'entities_model.dart';
 import 'pagination_model.dart';
 
@@ -24,9 +26,17 @@ class Data {
     if (entities != null) {
       data['entities'] = entities!.map((v) => v.toJson()).toList();
     }
-    if (pagination != null) {
-      data['pagination'] = pagination!.toJson();
-    }
     return data;
   }
+
+  @override
+  bool operator ==(covariant Data other) {
+    if (identical(this, other)) return true;
+
+    return listEquals(other.entities, entities) &&
+        other.pagination == pagination;
+  }
+
+  @override
+  int get hashCode => entities.hashCode ^ pagination.hashCode;
 }

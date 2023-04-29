@@ -37,4 +37,26 @@ class Pagination {
     }
     return data;
   }
+
+  @override
+  bool operator ==(covariant Pagination other) {
+    if (identical(this, other)) return true;
+
+    return other.total == total &&
+        other.count == count &&
+        other.perPage == perPage &&
+        other.currentPage == currentPage &&
+        other.totalPages == totalPages &&
+        other.links == links;
+  }
+
+  @override
+  int get hashCode {
+    return total.hashCode ^
+        count.hashCode ^
+        perPage.hashCode ^
+        currentPage.hashCode ^
+        totalPages.hashCode ^
+        links.hashCode;
+  }
 }

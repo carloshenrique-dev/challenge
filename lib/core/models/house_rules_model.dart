@@ -15,11 +15,21 @@ class HouseRulesModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['success'] = success;
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
-    data['message'] = message;
     return data;
   }
+
+  @override
+  bool operator ==(covariant HouseRulesModel other) {
+    if (identical(this, other)) return true;
+
+    return other.success == success &&
+        other.data == data &&
+        other.message == message;
+  }
+
+  @override
+  int get hashCode => success.hashCode ^ data.hashCode ^ message.hashCode;
 }

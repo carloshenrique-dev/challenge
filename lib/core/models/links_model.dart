@@ -15,4 +15,14 @@ class Links {
     data['prev'] = prev;
     return data;
   }
+
+  @override
+  bool operator ==(covariant Links other) {
+    if (identical(this, other)) return true;
+
+    return other.next == next && other.prev == prev;
+  }
+
+  @override
+  int get hashCode => next.hashCode ^ prev.hashCode;
 }

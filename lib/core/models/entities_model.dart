@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 class Entities {
   int? id;
   String? name;
@@ -15,12 +14,9 @@ class Entities {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['name'] = name;
-    data['active'] = active;
-    data['order'] = order;
-    return data;
+    return {
+      'house_rules': {'name': name, 'active': active}
+    };
   }
 
   Entities copyWith({
@@ -40,5 +36,20 @@ class Entities {
   @override
   String toString() {
     return 'Entities(id: $id, name: $name, active: $active, order: $order)';
+  }
+
+  @override
+  bool operator ==(covariant Entities other) {
+    if (identical(this, other)) return true;
+
+    return other.id == id &&
+        other.name == name &&
+        other.active == active &&
+        other.order == order;
+  }
+
+  @override
+  int get hashCode {
+    return id.hashCode ^ name.hashCode ^ active.hashCode ^ order.hashCode;
   }
 }

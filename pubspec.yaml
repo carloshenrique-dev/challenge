@@ -1,4 +1,4 @@
-name: github_challenge
+name: challenge
 description: A new Flutter project.
 publish_to: 'none'
 version: 0.1.0
@@ -21,9 +21,7 @@ dependencies:
   google_sign_in: ^6.0.2
   http: ^0.13.5
   material_design_icons_flutter: ^6.0.7096
-  path: ^1.8.2
   rive: ^0.10.3
-  sqflite: ^2.2.6
 
 dev_dependencies:
   flutter_test:

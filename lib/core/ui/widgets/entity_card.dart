@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:github_challenge/core/models/entities_model.dart';
+import 'package:challenge/core/models/entities_model.dart';
 
 class EntityCard extends StatelessWidget {
   final Entities entities;

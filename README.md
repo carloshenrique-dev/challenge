@@ -1,4 +1,4 @@
-#  github_challenge
+#  challenge
 
 ### VSCode
 
@@ -13,12 +13,8 @@ For more information on running Flutter projects in VSCode, see the official Flu
 
 [Flutter Oficial Documentation](https://docs.flutter.dev/get-started/install)
 
-### Demo
-
-https://user-images.githubusercontent.com/58753717/229949951-ab5d0d26-ccff-4851-8399-b00b1279780b.mp4
-
-### Using the BLoC pattern with Cubit, Get_it, Go_router, and Sqflite
-The BLoC pattern is a popular state management pattern in Flutter, and there are several libraries that can help you implement it, including Cubit, Get_it, Go_router, and Sqflite. Here is a brief overview of each library and how to use them:
+### Using the BLoC pattern with Cubit, Get_it, Go_router
+The BLoC pattern is a popular state management pattern in Flutter, and there are several libraries that can help you implement it, including Cubit, Get_it, Go_router. Here is a brief overview of each library and how to use them:
 
 ### Useful links:
 
@@ -28,7 +24,6 @@ The BLoC pattern is a popular state management pattern in Flutter, and there are
 
 [go_router](https://pub.dev/packages/go_router)
 
-[sqflite](https://pub.dev/packages/sqflite)
 
 ### Cubit
 Cubit is a library that provides a simple way to implement BLoCs in Flutter. To use Cubit, you'll need to define a class that extends Cubit and implement its mapEventToState method. Here's an example:
@@ -126,58 +121,7 @@ GoRouter.of(context).go('/profile/123');
 
 For more information on using Go_router, see the official documentation here.
 
-### Sqflite
-Sqflite is a lightweight library that provides a simple way to use SQLite databases in Flutter. To use Sqflite, you'll need to create a database and define your tables. Here's an example:
-
-```
-final database = await openDatabase(
-  path.join(await getDatabasesPath(), 'my_database.db'),
-  onCreate: (db, version) async {
-    await db.execute('CREATE TABLE users(id INTEGER PRIMARY KEY, name TEXT)');
-  },
-  version: 1,
-);
-
-class UserRepository {
-  final Database _database = database;
-
-  Future<List<User>> getUsers() async {
-    final List<Map<String, dynamic>> maps = await _database.query('users');
-    return List.generate(maps.length, (i) {
-      return User(
-        id: maps[i]['id'],
-        name: maps[i]['name'],
-      );
-    });
-  }
-
-  Future<void> insertUser(User user) async {
-    await _database.insert('users', user.toMap());
-  }
-
-  Future<void> updateUser(User user) async {
-    await _database.update(
-      'users',
-      user.toMap(),
-      where: 'id = ?',
-      whereArgs: [user.id],
-    );
-  }
-
-  Future<void> deleteUser(int id) async {
-    await _database.delete(
-      'users',
-      where: 'id = ?',
-      whereArgs: [id],
-    );
-  }
-}
-```
-In this example, we're creating a users table in our database with an id and name column. We're also defining a UserRepository class that provides methods to interact with our database, including getUsers(), insertUser(), updateUser(), and deleteUser().
-
-For more information on using Sqflite, see the official documentation here.
-
-I hope this documentation helps you get started with using Cubit, Get_it, Go_router, and Sqflite in your Flutter app! If you have any questions or need further assistance, feel free to consult the official documentation for each library or reach out to the
+I hope this documentation helps you get started with using Cubit, Get_it, Go_router, in your Flutter app! If you have any questions or need further assistance, feel free to consult the official documentation for each library or reach out to the
 community for help. Happy coding!
 
 

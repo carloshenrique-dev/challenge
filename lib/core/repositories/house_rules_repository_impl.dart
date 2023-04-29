@@ -1,8 +1,9 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:github_challenge/core/models/house_rules_model.dart';
-import 'package:github_challenge/core/services/http_service.dart';
+import 'package:challenge/core/models/entities_model.dart';
+import 'package:challenge/core/models/house_rules_model.dart';
+import 'package:challenge/core/services/http_service.dart';
 
 import './house_rules_repository.dart';
 
@@ -14,9 +15,9 @@ class HouseRulesRepositoryImpl implements HouseRulesRepository {
   }) : _httpService = httpService;
 
   @override
-  Future<HouseRulesModel?> getHouseRules() async {
+  Future<HouseRulesModel?> getHouseRules(int page) async {
     try {
-      final response = await _httpService.get();
+      final response = await _httpService.get(page);
       if (response.statusCode == 200) {
         final dynamic data = json.decode(response.body);
         return HouseRulesModel.fromJson(data);
@@ -29,9 +30,9 @@ class HouseRulesRepositoryImpl implements HouseRulesRepository {
   }
 
   @override
-  Future<bool> addHouseRules(HouseRulesModel houseRulesModel) async {
+  Future<bool> addHouseRules(Entities entity) async {
     try {
-      final response = await _httpService.post(houseRulesModel);
+      final response = await _httpService.post(json.encode(entity.toJson()));
       if (response.statusCode == 200) {
         return true;
       }
@@ -57,12 +58,16 @@ class HouseRulesRepositoryImpl implements HouseRulesRepository {
   }
 
   @override
-  Future<bool> putHouseRules(HouseRulesModel houseRulesModel, int id) async {
+  Future<bool> putHouseRules(Entities entity) async {
     try {
-      final response = await _httpService.put(houseRulesModel, id);
-      if (response.statusCode == 200) {
-        return true;
+      if (entity.id != null) {
+        final response =
+            await _httpService.put(json.encode(entity.toJson()), entity.id!);
+        if (response.statusCode == 200) {
+          return true;
+        }
       }
+
       return false;
     } catch (e) {
       log(e.toString());

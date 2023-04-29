@@ -1,10 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:github_challenge/core/models/entities_model.dart';
-import 'package:github_challenge/modules/entity/entity_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:challenge/core/models/entities_model.dart';
+import 'package:challenge/modules/entity/entity_page.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../modules/home/cubit/home_cubit.dart';
 import '../../modules/home/home_page.dart';
 import '../../modules/login/login_page.dart';
+import 'dependency_injection.dart';
 
 enum AppRoutes { login, home, entity }
 
@@ -16,16 +19,26 @@ final GoRouter routes = GoRouter(
     GoRoute(
       path: '/home',
       name: AppRoutes.home.name,
-      builder: (context, state) => const HomePage(),
+      builder: (context, state) => BlocProvider(
+        create: (context) {
+          final cubit = locator<HomeCubit>();
+          cubit.getHouseRules();
+          return cubit;
+        },
+        child: const HomePage(),
+      ),
     ),
     GoRoute(
       path: '/entity',
       name: AppRoutes.entity.name,
       builder: (context, state) {
-        final arguments = state.extra as Map<String, dynamic>;
-        return EntityPage(
-          entity: arguments['entity'] as Entities,
-        );
+        if (state.extra != null) {
+          final arguments = state.extra as Map<String, dynamic>;
+          return EntityPage(
+            entity: arguments['entity'] as Entities,
+          );
+        }
+        return EntityPage(entity: Entities());
       },
     ),
     GoRoute(

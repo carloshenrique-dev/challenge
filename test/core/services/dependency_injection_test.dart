@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:github_challenge/core/repositories/user_repository/user_repository.dart';
-import 'package:github_challenge/core/repositories/user_repository/user_repository_impl.dart';
-import 'package:github_challenge/modules/home/cubit/home_cubit.dart';
-import 'package:github_challenge/modules/login/cubit/login_cubit.dart';
+import 'package:challenge/core/repositories/house_rules_repository.dart';
+import 'package:challenge/core/repositories/house_rules_repository_impl.dart';
+import 'package:challenge/core/services/http_service.dart';
+import 'package:challenge/core/services/http_service_impl.dart';
+
+import 'package:challenge/modules/home/cubit/home_cubit.dart';
+import 'package:challenge/modules/login/cubit/login_cubit.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   setUp(() {
     WidgetsFlutterBinding.ensureInitialized();
-
-    GetIt.I.registerLazySingleton<UserRepository>(() => UserRepositoryImpl());
-    GetIt.I.registerFactory<HomeCubit>(
-        () => HomeCubit(userRepository: GetIt.I.get<UserRepository>()));
+    GetIt.I.registerLazySingleton<HttpService>(() => HttpServiceImpl());
+    GetIt.I.registerLazySingleton<HouseRulesRepository>(() =>
+        HouseRulesRepositoryImpl(httpService: GetIt.I.get<HttpService>()));
+    GetIt.I.registerFactory<HomeCubit>(() =>
+        HomeCubit(houseRulesRepository: GetIt.I.get<HouseRulesRepository>()));
     GetIt.I.registerFactory<GoogleSignIn>(() => GoogleSignIn(scopes: [
           'email',
           'https://www.googleapis.com/auth/contacts.readonly',
@@ -21,16 +25,13 @@ void main() {
     GetIt.I.registerFactory<LoginCubit>(() => LoginCubit());
   });
   group('Dependency Injection', () {
-    //SQFLITE TESTS NOT IMPLEMENTED BECAUSE THE PACKAGE DONT SUPORT TESTS
-    //FOLLOW THE LINK: https://github.com/tekartik/sqflite/blob/master/sqflite/doc/testing.md
-
     setUp(() {
       GetIt.instance.reset();
     });
 
     test('Registers UserRepository as singleton', () {
-      final repository1 = GetIt.I.get<UserRepository>();
-      final repository2 = GetIt.I.get<UserRepository>();
+      final repository1 = GetIt.I.get<HouseRulesRepository>();
+      final repository2 = GetIt.I.get<HouseRulesRepository>();
       expect(repository1, equals(repository2));
     });
 

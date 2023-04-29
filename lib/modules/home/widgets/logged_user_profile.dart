@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:github_challenge/core/models/user_data.dart';
+import 'package:challenge/core/models/user_data.dart';
 
 class LoggedUserProfile extends StatelessWidget {
   final UserData? user;
@@ -13,12 +13,12 @@ class LoggedUserProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     if (user != null) {
       return UserAccountsDrawerHeader(
-        accountName: Text(user!.name!),
-        accountEmail: Text(user!.login!),
+        accountName: Text(user?.name ?? 'User'),
+        accountEmail: Text(user?.login ?? 'Login'),
         currentAccountPicture: ClipRRect(
           borderRadius: BorderRadius.circular(8.0),
           child: Image.network(
-            user!.avatarUrl!,
+            user?.avatarUrl ?? 'https://picsum.photos/500/500',
             loadingBuilder: (context, widget, loadingProgress) {
               if (loadingProgress == null) return widget;
               return const CircularProgressIndicator.adaptive();
@@ -28,8 +28,8 @@ class LoggedUserProfile extends StatelessWidget {
       );
     } else {
       return UserAccountsDrawerHeader(
-        accountName: const Text('Github search'),
-        accountEmail: const Text('Github search user'),
+        accountName: const Text('Search'),
+        accountEmail: const Text('Search user'),
         currentAccountPicture: ClipRRect(
           borderRadius: BorderRadius.circular(8.0),
           child: Image.network(

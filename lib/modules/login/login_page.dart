@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:go_router/go_router.dart';
-import 'package:github_challenge/core/services/routing.dart';
+import 'package:challenge/core/services/routing.dart';
 import 'package:rive/rive.dart';
 
 import '../../core/services/dependency_injection.dart';
@@ -23,7 +23,7 @@ class LoginPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text(
-                'Github Challenge',
+                'Challenge',
                 style: TextStyle(
                   fontFamily: 'Hubot',
                   fontWeight: FontWeight.bold,

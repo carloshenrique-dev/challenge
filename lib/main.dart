@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:github_challenge/core/ui/theme/text_theme.dart';
+import 'package:challenge/core/ui/theme/text_theme.dart';
 import 'core/services/dependency_injection.dart';
 import 'core/services/routing.dart';
 import 'firebase_options.dart';
